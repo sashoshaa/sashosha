@@ -26,12 +26,17 @@
   }
   .wrap{max-width:1180px;margin:auto;padding:32px 20px 60px}
   .top{
-    display:flex;justify-content:space-between;align-items:center;
-    margin-bottom:22px;color:#111;font-size:13px;letter-spacing:.02em
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
+    gap:12px;margin-bottom:22px;color:#111;font-size:13px;letter-spacing:.02em
   }
   .brand{font-size:14px}
-  .nav a{color:#111;text-decoration:none;margin-left:20px;transition:color .25s}
-  .nav a:hover{color:#9A5C76}
+  .nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+  .nav a{
+    color:#111;text-decoration:none;margin:0;
+    padding:8px 12px;background:var(--paper);border:1px solid #ddd;
+    transition:color .25s, background .25s
+  }
+  .nav a:hover{color:#9A5C76;background:#fff}
   .grid{
     display:grid;grid-template-columns:1.25fr .75fr;gap:18px
   }
@@ -287,7 +292,8 @@
     .formats,.reasons,.steps,.process,.included{grid-template-columns:1fr}
     .hero{min-height:auto}
     .photo{min-height:0;aspect-ratio:1}
-    .nav{display:none}
+    .top{align-items:flex-start}
+    .nav{justify-content:flex-start;width:100%}
     .cta{display:block}.cta .button{margin-top:24px}
     .mid-cta{display:block}.mid-cta .button{margin-top:18px}
     .trainer{grid-template-columns:1fr}
