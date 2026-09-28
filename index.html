@@ -34,23 +34,20 @@
   }
   .brand{font-size:14px}
   .menu-btn{
-    display:flex;width:44px;height:44px;margin-left:auto;z-index:51;
-    border:1px solid #ddd;background:var(--paper);
-    padding:0;align-items:center;justify-content:center;
-    cursor:pointer;appearance:none;font:inherit;position:relative
+    width:44px;height:44px;margin-left:auto;z-index:51;padding:0;
+    border:1px solid #ddd;cursor:pointer;position:relative;
+    -webkit-appearance:none;appearance:none;
+    background-color:var(--paper);
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:20px 14px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='14' viewBox='0 0 20 14'%3E%3Crect width='20' height='2' y='0' fill='%23111'/%3E%3Crect width='20' height='2' y='6' fill='%23111'/%3E%3Crect width='20' height='2' y='12' fill='%23111'/%3E%3C/svg%3E")
   }
-  .menu-btn span:not(.menu-x){
-    position:absolute;left:11px;right:11px;height:2px;background:#111
+  .menu-btn span{display:none}
+  .top.open .menu-btn{
+    background-size:16px 16px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M2 2l12 12M14 2L2 14' stroke='%23111' stroke-width='2' fill='none'/%3E%3C/svg%3E")
   }
-  .menu-btn span:nth-child(1){top:14px}
-  .menu-btn span:nth-child(2){top:21px}
-  .menu-btn span:nth-child(3){top:28px}
-  .menu-btn .menu-x{
-    display:none;font-size:32px;line-height:1;color:#111
-  }
-  .top.open .menu-btn{background:#111;border-color:#111;z-index:51}
-  .top.open .menu-btn span:not(.menu-x){display:none}
-  .top.open .menu-btn .menu-x{display:block;color:#fff}
   .nav{
     display:none;position:absolute;right:0;top:100%;z-index:50;
     min-width:240px;flex-direction:column;gap:8px;padding:12px;
@@ -334,10 +331,7 @@
 <div class="wrap">
   <div class="top">
     <div class="brand">sashosha math</div>
-    <button type="button" class="menu-btn" aria-label="открыть меню" aria-expanded="false" aria-controls="site-nav">
-      <span></span><span></span><span></span>
-      <span class="menu-x" aria-hidden="true">×</span>
-    </button>
+    <button type="button" class="menu-btn" aria-label="открыть меню" aria-expanded="false" aria-controls="site-nav"></button>
     <nav class="nav" id="site-nav">
       <a href="#about">обо мне</a>
       <a href="#why">почему я</a>
