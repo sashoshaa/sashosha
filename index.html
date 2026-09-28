@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="format-detection" content="telephone=no">
 <title>Александра Антоновна — репетитор по математике</title>
-<style>
+  <style>
   :root{
     --bg:#F1DFE5;
     --paper:#f8f8f6;
@@ -93,6 +93,22 @@
   .accent{color:#c97a98}
   .lead{font-size:19px;line-height:1.35;max-width:560px}
   .small{color:var(--muted);font-size:14px;line-height:1.5}
+  .slider{padding:0;overflow:hidden}
+  .slide{display:none;margin:0}
+  .slide.active{display:block}
+  .slide img{width:100%;max-height:72vh;object-fit:contain;display:block;background:#fff}
+  .slide figcaption{padding:14px 16px;font-size:14px}
+  .review-slide{padding:32px 32px 8px}
+  .review-slide p{margin:0;font-size:20px;line-height:1.4;letter-spacing:-.02em}
+  .slider-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:12px;padding:12px 14px;border-top:1px solid #ddd
+  }
+  .slider-bar button{
+    width:44px;height:44px;border:1px solid #ddd;background:#fff;
+    cursor:pointer;font-size:18px;font-family:inherit
+  }
+  .slider-count{font-size:13px;color:#777}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
   .chip{background:#eee;padding:8px 12px;border-radius:3px;font-size:13px}
   .photo{
@@ -337,6 +353,7 @@
   @media(max-width:800px){
     .grid,.about,.gifts,.faq-grid{grid-template-columns:1fr}
     .formats,.reasons,.steps,.process,.included{grid-template-columns:1fr}
+    .review-slide p{font-size:18px}
     .hero{min-height:auto}
     .photo{min-height:0;aspect-ratio:1}
     .nav{left:0;right:0;min-width:0}
@@ -345,8 +362,8 @@
     .mid-cta{display:block}.mid-cta .button{margin-top:18px}
     .trainer{grid-template-columns:1fr}
     .float-cta{right:16px;bottom:16px}
-  }
-</style>
+    }
+  </style>
 </head>
 <body x-apple-data-detectors="false">
 <div class="wrap">
@@ -356,15 +373,15 @@
     <nav class="nav" id="site-nav">
       <a href="#about">обо мне</a>
       <a href="#why">почему я</a>
-      <a href="#trainer">тренажёр</a>
-      <a href="#channel">канал</a>
+      <a href="#free">бесплатно</a>
+      <a href="#materials">материалы</a>
+      <a href="#reviews">отзывы</a>
       <a href="#exam">огэ / егэ</a>
       <a href="#formats">форматы</a>
-      <a href="#prices">цены</a>
       <a href="#faq">вопросы</a>
       <a href="#contact">записаться</a>
     </nav>
-  </div>
+    </div>
 
   <main>
     <div class="grid">
@@ -415,38 +432,98 @@
         </div>
         <div class="card">
           <div class="section-title">что будет на занятиях</div>
-          <div class="facts">
+            <div class="facts">
             <div class="fact"><strong>01</strong>индивидуальная программа</div>
             <div class="fact"><strong>02</strong>собственные материалы</div>
-            <div class="fact"><strong>03</strong>разбор слабых мест</div>
-            <div class="fact"><strong>04</strong>поддержка между темами</div>
+              <div class="fact"><strong>03</strong>разбор слабых мест</div>
+              <div class="fact"><strong>04</strong>поддержка между темами</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="trainer" class="reveal">
+    <section id="materials" class="reveal">
+      <div class="section-title">оформление занятий</div>
+      <div class="card slider" data-slider>
+        <figure class="slide">
+          <img src="materials/tetrad.jpg" alt="Страница рабочей тетради с уравнениями">
+          <figcaption>рабочая тетрадь</figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="materials/trig.jpg" alt="Конспект по тригонометрии">
+          <figcaption>конспект по тригонометрии</figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="materials/razbor.jpg" alt="Разбор задания по окружности">
+          <figcaption>разбор задания</figcaption>
+        </figure>
+        <div class="slider-bar">
+          <button type="button" class="slider-prev" aria-label="предыдущее">←</button>
+          <span class="slider-count"></span>
+          <button type="button" class="slider-next" aria-label="следующее">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="reveal">
+      <div class="section-title">отзывы</div>
+      <div class="card slider" data-slider>
+        <div class="slide review-slide"><p>Мне очень нравится наши занятия красивым оформлением и супер весёлой атмосферой) или даже когда не особо активное настроение мы очень комфортно учимся. Вы всегда понятно объясняете то, что я раньше не могла понять. А самый запоминающийся момент — когда я говорила про 40 пальцев и HOHOHO. Вы самый лучший репетитор.</p></div>
+        <div class="slide review-slide"><p>Саше спасибо большое за помощь с экзаменом. Она не просто отличный репетитор, ещё и помощник для студентов-гуманитариев. Я сдавала теорию вероятностей и нужна была помощь с задачами, так как на семинарах было ничего непонятно. Всё быстро, подробно и понятно расписала, очень помогло на экзамене, сдала на 5. Большая рекомендация.</p></div>
+        <div class="slide review-slide"><p>Раньше я почти совсем не понимала алгебру и геометрию, случайным образом нашла репетитора Александру Антоновну, которая помогла мне со всем справиться. Теперь я намного лучше понимаю математику. Занятия проходят комфортно, весело и всё понятно. Даже если с первого раза ничего не поняла, учитель объяснит до того момента, пока ты не поймёшь. Каждый раз жду занятия.</p></div>
+        <div class="slide review-slide"><p>Спасибо, было очень круто на вебинаре.</p></div>
+        <div class="slide review-slide"><p>Спасибо, вебинар был прекрасным, всё доступно и понятно. Атмосфера очень уютная, было максимально комфортно.</p></div>
+        <div class="slide review-slide"><p>Хочу сказать вам огромное спасибо. Раньше математика казалась мне каким-то страшным и непонятным монстром, а теперь я иду на занятия с настоящей улыбкой. Вы объясняете всё так просто и с такой добротой, что даже самые сложные задачки щёлкаются как орешки. Занятия по математике стали для меня самым приятным временем в неделю. Спасибо за терпение, веру в меня и за то, что на уроках всегда такая уютная и тёплая атмосфера.</p></div>
+        <div class="slide review-slide"><p>Изначально я переживала насчёт своих знаний и начала заниматься исключительно, чтобы подготовиться к ОГЭ, но вы своими объяснениями помогли мне, и сейчас я занимаюсь, потому что полюбила математику. Каждое занятие я жду с нетерпением, так как знаю, что всё пойму. Мне очень нравится формат: за 10–15 минут до пробника могу пробежаться по файлам с записями и всё вспомнить. Люблю, оцениваю на 10/10.</p></div>
+        <div class="slide review-slide"><p>Очень милый и добрый репетитор, который хорошо знает своё дело, отлично преподаёт, делает презентации и подстраивается под ученика. Саша очень комфортный и разносторонний человек: помимо математики, во время занятия может просто поддержать и поднять настроение. Самым ценным были отношения, доброта и сама подача материала. Благодаря ей начался прогресс в математике.</p></div>
+        <div class="slide review-slide"><p>Мне очень нравится, как вы преподаёте. Благодаря вам я улучшила свои знания и оценки, огромное спасибо за ваш вклад. Настолько хорошего репетитора я ещё никогда не встречала.</p></div>
+        <div class="slide review-slide"><p>После ухода моей любимой учительницы математика явно скатилась. Я просто стала ненавидеть её всем сердцем, но благодаря репетитору смогла её полюбить. Каждое занятие проходит в дружеской обстановке, и можно действительно кайфануть с математики.</p></div>
+        <div class="slide review-slide"><p>Занятия по математике с вами оказались очень полезными и эффективными. Вы уделяете внимание всем сложным темам и помогаете глубоко разобраться в предмете. Благодаря поддержке и индивидуальному подходу значительно улучшились знания и успеваемость. Уроки проходят интересно и всегда в комфортной атмосфере.</p></div>
+        <div class="slide review-slide"><p>Спасибо за наши занятия. Меня каждый раз так заряжает этой достигаторской математической энергией. Вы мотивируете делать и решать больше. Нравится, что мы разбираем непонятные темы не только по алгебре, но и по геометрии и статистике. За три месяца я написала пробник на 4, а сейчас пишу на 5. В школе подняла средний балл. То, что ещё год назад казалось невозможным, сейчас решаю за минуту.</p></div>
+        <div class="slide review-slide"><p>Вы лучшая репетитор на моей памяти. За год с нуля подняли меня до уровня, что я сдаю ОГЭ на 4.</p></div>
+        <div class="slide review-slide"><p>С вами я начала всё понимать. Спасибо большое за наши весёлые занятия.</p></div>
+        <div class="slide review-slide"><p>Спасибо огромное за интенсив. Пожалела, что мы не начали заниматься раньше, потому что вы дали немало знаний и вселили уверенность.</p></div>
+        <div class="slide review-slide"><p>Спасибо вам большое. Сейчас и математика не кажется такой дурацкой, и заканчивать не хочется. Вы реально самый лучший учитель, очень терпеливая, разъясняете всё по крупинкам. Это очень ценно — найти специалиста, который ещё и горит своим делом.</p></div>
+        <div class="slide review-slide"><p>Мне так повезло, что я встретила вас. Безумно огромное спасибо.</p></div>
+        <div class="slide review-slide"><p>Вы — самый лучший репетитор. За эти полгода очень сильно вас полюбила. Я даже не надеялась на 4, но благодаря вам у меня такой балл. Если пойду в 10 класс, вы у меня на первом месте. Из всех репетиторов вы единственная, которая смогла найти ко мне подход и всё прекрасно объясняла. Из-за вас я реально начала любить математику, и поэтому моя 4 — это ваша заслуга в большей степени.</p></div>
+        <div class="slide review-slide"><p>Я в шоке просто. Спасибо вам огромное за подготовку. Я бы без вас на 3 написала.</p></div>
+        <div class="slide review-slide"><p>У меня 5. 25 баллов, абсолютно всё правильно. Спасибо вам огромное.</p></div>
+        <div class="slide review-slide"><p>У меня 21 балл.</p></div>
+        <div class="slide review-slide"><p>Я не верю своим глазам. У меня 4. Одного балла на 5 не хватило, а так я очень счастлива.</p></div>
+        <div class="slide review-slide"><p>Я поступила. По математике 8/10, спасибо вам большое. Это была подготовка к вступительным в 9 класс московской школы.</p></div>
+        <div class="slider-bar">
+          <button type="button" class="slider-prev" aria-label="предыдущий отзыв">←</button>
+          <span class="slider-count"></span>
+          <button type="button" class="slider-next" aria-label="следующий отзыв">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="free" class="reveal">
+      <div class="section-title">бесплатно</div>
+    <section id="trainer">
       <div class="card trainer">
-        <div>
+              <div>
           <div class="tag">мой сайт-тренажёр</div>
           <div class="price">бесплатно</div>
           <p class="bigquote">математика без паники — тренируйся в своём темпе</p>
           <p class="small trainer-lead">Я сама разработала тренажёр: выбираешь тему, проходишь уровни и решаешь задания. Таблица умножения, уравнения, дроби и другие темы. Без оплаты — заходишь на сайт и сразу занимаешься.</p>
-        </div>
+              </div>
         <a class="button" href="https://sashoshaa.github.io/sashosha-math/" target="_blank" rel="noopener">получить тренажёр →</a>
-      </div>
+            </div>
     </section>
 
     <section id="channel" class="reveal">
       <div class="card trainer">
-        <div>
+              <div>
           <div class="tag">telegram-канал</div>
           <div class="price">бесплатно</div>
           <p class="bigquote">разборы, шпаргалки и полезности — просто так</p>
           <p class="small trainer-lead">В канале @sashoshamath я бесплатно публикую много разборов, шпаргалок и полезных материалов. Можно зайти, сохранить нужное и пользоваться без оплаты и без записи на занятия.</p>
         </div>
         <a class="button" href="https://t.me/sashoshamath" target="_blank" rel="noopener">открыть канал →</a>
-      </div>
+              </div>
+    </section>
     </section>
 
     <section id="why" class="reveal">
@@ -467,11 +544,11 @@
           <div class="section-title">комфортная атмосфера</div>
           <p class="small">Ошибки на занятиях — это не повод для расстройств, а знак, что ты работаешь и двигаешься вперёд.</p>
         </article>
-      </div>
+            </div>
       <div class="card mid-cta">
         <p>не надо «ещё чуть-чуть подготовиться» — можно начать уже на этой неделе</p>
         <a class="button" href="#contact">хочу на занятие →</a>
-      </div>
+              </div>
     </section>
 
     <section id="gifts" class="reveal">
@@ -479,7 +556,7 @@
         <div class="card">
           <div class="tag">система подарков</div>
           <p class="bigquote">учишься — получаешь баллы и меняешь их на призы</p>
-        </div>
+            </div>
         <div class="card">
           <div class="section-title">как копить баллы</div>
           <div class="facts">
@@ -494,7 +571,7 @@
 
     <section id="process" class="reveal">
       <div class="section-title">как проходит занятие</div>
-      <div class="process">
+        <div class="process">
         <div class="card">
           <div class="fact"><strong>01</strong>находим точку входа</div>
           <p class="small">Смотрим, где уже уверенно, а где тема рассыпается. Без проверки «на страх».</p>
@@ -526,30 +603,30 @@
             <li><b>{2}</b>индивидуальная программа</li>
             <li><b>{3}</b>разбираем именно твои слабые места</li>
             <li><b>{4}</b>цена зависит от запроса</li>
-          </ul>
-        </article>
+            </ul>
+          </article>
 
         <article class="card format pair">
           <div class="tag">формат пара</div>
           <div class="folder"></div>
-          <div class="price">2250 ₽ / 60 минут</div>
-          <ul>
+            <div class="price">2250 ₽ / 60 минут</div>
+            <ul>
             <li><b>{1}</b>ты + друг или одноклассник</li>
             <li><b>{2}</b>совместное решение задач</li>
             <li><b>{3}</b>поддержка и мотивация</li>
-          </ul>
-        </article>
+            </ul>
+          </article>
 
         <article class="card format group">
           <div class="tag">формат группы</div>
           <div class="folder"></div>
-          <div class="price">1500 ₽ / 60 минут</div>
-          <ul>
+            <div class="price">1500 ₽ / 60 минут</div>
+            <ul>
             <li><b>{1}</b>3–5 замотивированных ребят</li>
             <li><b>{2}</b>активное обсуждение</li>
             <li><b>{3}</b>соревнования = дополнительная мотивация</li>
-          </ul>
-        </article>
+            </ul>
+          </article>
       </div>
     </section>
 
@@ -579,17 +656,17 @@
             <article class="card include">
               <div class="fact"><strong>05</strong>большой теоретический сборник</div>
               <p class="small">По всем темам курса: открыть, найти нужное, повторить. Не надо собирать теорию по десяти чатам.</p>
-            </article>
+          </article>
             <article class="card include">
               <div class="fact"><strong>06</strong>свои пробники</div>
               <p class="small">Раз в 2–3 недели. Периодичность зависит от месяца: ближе к экзамену — чаще и точнее по формату.</p>
-            </article>
+          </article>
             <article class="card include">
               <div class="fact"><strong>07</strong>общие пробники с камерами</div>
               <p class="small">Раз в месяц для всех, кто готовится к ОГЭ и ЕГЭ. Проходят официально: бланки, справочные материалы и КИМы — чтобы в день экзамена не было сюрпризов.</p>
-            </article>
-          </div>
+          </article>
         </div>
+      </div>
       </details>
     </section>
 
@@ -600,17 +677,17 @@
           <div class="tag">шаг 01</div>
           <div class="section-title">оставь заявку</div>
           <p class="small">Имя, класс, цель и контакт — я увижу заявку и сама напишу.</p>
-        </article>
+          </article>
         <article class="card step">
           <div class="tag">шаг 02</div>
           <div class="section-title">выберем формат</div>
           <p class="small">Индивидуально, пара или группа — подстроимся под ритм и то, как тебе спокойнее учиться.</p>
-        </article>
+          </article>
         <article class="card step">
           <div class="tag">шаг 03</div>
           <div class="section-title">встретимся</div>
           <p class="small">Знакомимся, находим точку входа и сразу начинаем разбирать тему. Первый урок — бесплатный пробный.</p>
-        </article>
+          </article>
       </div>
     </section>
 
@@ -632,19 +709,19 @@
         <details class="card faq-item">
           <summary>что входит в цену на ОГЭ и ЕГЭ?</summary>
           <p class="small">Уроки, персональные конспекты, д/з с проверкой, связь 24/7, теоретический сборник и пробники. Отдельно за материалы и пробники платить не нужно.</p>
-        </details>
+          </details>
         <details class="card faq-item">
           <summary>как проходят общие пробники?</summary>
           <p class="small">Раз в месяц, с камерами, для всех, кто готовится к ОГЭ и ЕГЭ. Официально: бланки, справочные материалы и КИМы.</p>
-        </details>
+          </details>
         <details class="card faq-item">
           <summary>что можно получить бесплатно?</summary>
           <p class="small">Пробный урок, сайт-тренажёр и материалы в Telegram-канале: разборы, шпаргалки и полезности. Канал и тренажёр открываются сами, пробное занятие — после заявки на сайте.</p>
-        </details>
+          </details>
         <details class="card faq-item">
           <summary>что публикуется в канале?</summary>
           <p class="small">В @sashoshamath я бесплатно выкладываю разборы, шпаргалки и полезности. Можно читать и сохранять, даже если ты ещё не занимаешься со мной.</p>
-        </details>
+          </details>
       </div>
     </section>
 
@@ -710,7 +787,7 @@
           <div class="full">
             <button class="button" type="submit">отправить заявку →</button>
             <p class="small lead-status" id="lead-status" hidden></p>
-          </div>
+        </div>
         </form>
       </div>
     </section>
@@ -751,6 +828,28 @@
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenu(false);
+  });
+
+  document.querySelectorAll('[data-slider]').forEach((slider) => {
+    const slides = [...slider.querySelectorAll('.slide')];
+    const count = slider.querySelector('.slider-count');
+    let i = 0;
+    const show = (n) => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((slide, idx) => slide.classList.toggle('active', idx === i));
+      if (count) count.textContent = (i + 1) + ' / ' + slides.length;
+    };
+    slider.querySelector('.slider-prev').addEventListener('click', () => show(i - 1));
+    slider.querySelector('.slider-next').addEventListener('click', () => show(i + 1));
+    let startX = null;
+    slider.addEventListener('touchstart', (e) => { startX = e.changedTouches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', (e) => {
+      if (startX == null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+      startX = null;
+    });
+    show(0);
   });
 
   const leadForm = document.getElementById('lead-form');
