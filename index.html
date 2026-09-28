@@ -222,6 +222,26 @@
     padding:38px;display:flex;justify-content:space-between;align-items:end;gap:30px
   }
   .cta h2{font-size:48px;line-height:.95;margin:0;letter-spacing:-.06em;font-weight:500}
+  .lead-wrap{padding:38px 38px 34px}
+  .lead-wrap:hover{transform:none;box-shadow:none}
+  .lead-form{
+    margin-top:26px;
+    display:grid;grid-template-columns:1fr 1fr;gap:14px
+  }
+  .lead-form .full{grid-column:1/-1}
+  .lead-form label{display:block;font-size:12px;color:#777;margin:0 0 6px}
+  .lead-form input,.lead-form select,.lead-form textarea{
+    width:100%;border:1px solid #ddd;background:#fff;color:#111;
+    padding:12px 14px;font-family:inherit;font-size:14px
+  }
+  .lead-form select{
+    -webkit-appearance:none;appearance:none;border-radius:0;
+    background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23111' stroke-width='1.4' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center
+  }
+  .lead-form textarea{min-height:88px;resize:vertical}
+  .lead-form button.button{border:0;cursor:pointer;width:auto}
+  .lead-status{margin:8px 0 0;font-size:14px}
+  .hp{position:absolute;left:-9999px;height:0;overflow:hidden}
   .button{
     display:inline-block;background:#111;color:#fff;text-decoration:none;
     padding:15px 22px;font-size:14px;white-space:nowrap;
@@ -321,6 +341,7 @@
     .photo{min-height:0;aspect-ratio:1}
     .nav{left:0;right:0;min-width:0}
     .cta{display:block}.cta .button{margin-top:24px}
+    .lead-form{grid-template-columns:1fr}
     .mid-cta{display:block}.mid-cta .button{margin-top:18px}
     .trainer{grid-template-columns:1fr}
     .float-cta{right:16px;bottom:16px}
@@ -361,7 +382,7 @@
           <span class="chip">онлайн</span>
         </div>
         <div class="hero-actions">
-          <a class="button" href="https://t.me/sashoshaa">записаться в Telegram →</a>
+          <a class="button" href="#contact">оставить заявку →</a>
         </div>
       </div>
 
@@ -449,7 +470,7 @@
       </div>
       <div class="card mid-cta">
         <p>не надо «ещё чуть-чуть подготовиться» — можно начать уже на этой неделе</p>
-        <a class="button" href="https://t.me/sashoshaa">хочу на занятие →</a>
+        <a class="button" href="#contact">хочу на занятие →</a>
       </div>
     </section>
 
@@ -577,8 +598,8 @@
       <div class="steps">
         <article class="card step">
           <div class="tag">шаг 01</div>
-          <div class="section-title">напиши мне</div>
-          <p class="small">В Telegram @sashoshaa. Можно коротко: класс, цель и что сейчас тревожит.</p>
+          <div class="section-title">оставь заявку</div>
+          <p class="small">Имя, класс, цель и контакт — я увижу заявку и сама напишу.</p>
         </article>
         <article class="card step">
           <div class="tag">шаг 02</div>
@@ -618,7 +639,7 @@
         </details>
         <details class="card faq-item">
           <summary>что можно получить бесплатно?</summary>
-          <p class="small">Пробный урок, сайт-тренажёр и материалы в Telegram-канале: разборы, шпаргалки и полезности. Канал и тренажёр открываются сами, пробное занятие — после сообщения в личку @sashoshaa.</p>
+          <p class="small">Пробный урок, сайт-тренажёр и материалы в Telegram-канале: разборы, шпаргалки и полезности. Канал и тренажёр открываются сами, пробное занятие — после заявки на сайте.</p>
         </details>
         <details class="card faq-item">
           <summary>что публикуется в канале?</summary>
@@ -628,18 +649,74 @@
     </section>
 
     <section id="contact" class="reveal">
-      <div class="card cta">
-        <div>
-          <div class="small">места не бесконечные · напиши сегодня</div>
-          <h2>давай<br>разберёмся<br>с математикой<span class="accent">.</span></h2>
-          <p class="small cta-note">Первый шаг — одно сообщение. Подберём формат, успокоим панику и начнём с темы, которая реально мешает.</p>
-        </div>
-        <a class="button" href="https://t.me/sashoshaa">записаться сейчас →</a>
+      <div class="card lead-wrap">
+        <div class="small">места не бесконечные · заявка за минуту</div>
+        <h2>давай<br>разберёмся<br>с математикой<span class="accent">.</span></h2>
+        <p class="small cta-note">Заполни форму. Я увижу заявку и сама напишу в Telegram или на номер.</p>
+        <form class="lead-form" id="lead-form">
+          <p class="hp" aria-hidden="true"><label>не заполнять<input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
+          <div>
+            <label for="lead-name">ваше имя</label>
+            <input id="lead-name" name="name" type="text" required autocomplete="name">
+          </div>
+          <div>
+            <label for="lead-city">город</label>
+            <input id="lead-city" name="city" type="text" required autocomplete="address-level2">
+          </div>
+          <div>
+            <label for="lead-class">класс</label>
+            <select id="lead-class" name="class" required>
+              <option value="" selected disabled>выбери класс</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+            </select>
+          </div>
+          <div>
+            <label for="lead-goal">цель</label>
+            <select id="lead-goal" name="goal" required>
+              <option value="" selected disabled>зачем занимаемся</option>
+              <option>подтянуть оценки</option>
+              <option>ОГЭ</option>
+              <option>ЕГЭ база</option>
+              <option>разобраться в теме</option>
+              <option>другое</option>
+            </select>
+          </div>
+          <div>
+            <label for="lead-source">откуда вы пришли</label>
+            <select id="lead-source" name="source" required>
+              <option value="" selected disabled>как узнали</option>
+              <option>Instagram</option>
+              <option>TikTok</option>
+              <option>рекомендация</option>
+              <option>Telegram</option>
+              <option>YouTube</option>
+              <option>другое</option>
+            </select>
+          </div>
+          <div>
+            <label for="lead-contact">Telegram или телефон</label>
+            <input id="lead-contact" name="contact" type="text" required placeholder="@username или номер" autocomplete="tel">
+          </div>
+          <div class="full">
+            <label for="lead-note">комментарий, если нужно</label>
+            <textarea id="lead-note" name="note" placeholder="можно не заполнять"></textarea>
+          </div>
+          <div class="full">
+            <button class="button" type="submit">отправить заявку →</button>
+            <p class="small lead-status" id="lead-status" hidden></p>
+          </div>
+        </form>
       </div>
     </section>
   </main>
 
-  <a class="float-cta" href="https://t.me/sashoshaa">записаться</a>
+  <a class="float-cta" href="#contact">заявка</a>
 
   <footer>@sashoshaa · sashosha math</footer>
 </div>
@@ -674,6 +751,29 @@
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') setMenu(false);
+  });
+
+  const leadForm = document.getElementById('lead-form');
+  const leadStatus = document.getElementById('lead-status');
+  leadForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(leadForm);
+    if ((data.get('company') || '').trim()) return;
+    const lines = [
+      'Заявка с сайта sashosha math',
+      '',
+      'Имя: ' + data.get('name'),
+      'Город: ' + data.get('city'),
+      'Класс: ' + data.get('class'),
+      'Цель: ' + data.get('goal'),
+      'Откуда: ' + data.get('source'),
+      'Контакт: ' + data.get('contact')
+    ];
+    const note = (data.get('note') || '').trim();
+    if (note) lines.push('Комментарий: ' + note);
+    leadStatus.hidden = false;
+    leadStatus.textContent = 'Открываю заявку…';
+    window.location.href = 'https://t.me/sashoshaa?text=' + encodeURIComponent(lines.join('\n'));
   });
 </script>
 </body>
