@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="format-detection" content="telephone=no">
 <title>Александра Антоновна — репетитор по математике</title>
 <style>
   :root{
@@ -124,6 +125,7 @@
     display:inline-block;padding:7px 11px;background:#f0f0ee;
     font-size:15px;margin-bottom:15px
   }
+  a[href^="tel"]{color:inherit;text-decoration:none;pointer-events:none}
   .group .price{background:var(--blue)}
   .ind .price{background:var(--pink2)}
   .pair .price{background:var(--cream)}
@@ -301,7 +303,7 @@
   }
 </style>
 </head>
-<body>
+<body x-apple-data-detectors="false">
 <div class="wrap">
   <div class="top">
     <div class="brand">sashosha math</div>
@@ -472,7 +474,7 @@
         <article class="card format ind">
           <div class="tag">формат индивидуально</div>
           <div class="folder"></div>
-          <div class="price">3000–4000 ₽ / 60 минут</div>
+          <div class="price" x-apple-data-detectors="false">3&nbsp;000–4&nbsp;000 ₽ / 60 минут</div>
           <ul>
             <li><b>{1}</b>только ты и преподаватель</li>
             <li><b>{2}</b>индивидуальная программа</li>
