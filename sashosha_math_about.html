@@ -652,7 +652,7 @@
       <div class="card lead-wrap">
         <div class="small">места не бесконечные · заявка за минуту</div>
         <h2>давай<br>разберёмся<br>с математикой<span class="accent">.</span></h2>
-        <p class="small cta-note">Заполни форму. Я увижу заявку и сама напишу в Telegram или на номер.</p>
+        <p class="small cta-note">Заполни форму. Заявка сохранится, мне придёт уведомление, и я сама напишу.</p>
         <form class="lead-form" id="lead-form">
           <p class="hp" aria-hidden="true"><label>не заполнять<input type="text" name="company" tabindex="-1" autocomplete="off"></label></p>
           <div>
@@ -755,25 +755,44 @@
 
   const leadForm = document.getElementById('lead-form');
   const leadStatus = document.getElementById('lead-status');
-  leadForm.addEventListener('submit', (e) => {
+  const leadEndpoint = 'https://sashosha-leads.flame-microwave.workers.dev';
+  leadForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const data = new FormData(leadForm);
-    if ((data.get('company') || '').trim()) return;
-    const lines = [
-      'Заявка с сайта sashosha math',
-      '',
-      'Имя: ' + data.get('name'),
-      'Город: ' + data.get('city'),
-      'Класс: ' + data.get('class'),
-      'Цель: ' + data.get('goal'),
-      'Откуда: ' + data.get('source'),
-      'Контакт: ' + data.get('contact')
-    ];
-    const note = (data.get('note') || '').trim();
-    if (note) lines.push('Комментарий: ' + note);
+    const raw = new FormData(leadForm);
+    if ((raw.get('company') || '').trim()) return;
+    const payload = {
+      name: raw.get('name'),
+      city: raw.get('city'),
+      class: raw.get('class'),
+      goal: raw.get('goal'),
+      source: raw.get('source'),
+      contact: raw.get('contact'),
+      note: (raw.get('note') || '').trim()
+    };
+    const btn = leadForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
     leadStatus.hidden = false;
-    leadStatus.textContent = 'Открываю заявку…';
-    window.location.href = 'https://t.me/sashoshaa?text=' + encodeURIComponent(lines.join('\n'));
+    leadStatus.textContent = 'Отправляю заявку…';
+    try {
+      const res = await fetch(leadEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const out = await res.json().catch(() => ({ ok: false }));
+      if (out.error === 'start-bot') {
+        leadStatus.textContent = 'Заявка почти ушла. Напиши боту @sashosha_listbot «Старт» и отправь форму ещё раз.';
+      } else if (out.ok) {
+        leadForm.reset();
+        leadStatus.textContent = 'Заявка отправлена. Я сама напишу в Telegram или на номер.';
+      } else {
+        leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
+      }
+    } catch (err) {
+      leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
+    } finally {
+      btn.disabled = false;
+    }
   });
 </script>
 </body>

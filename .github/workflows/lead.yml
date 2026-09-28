@@ -1,0 +1,88 @@
+name: Notify new lead
+
+on:
+  repository_dispatch:
+    types: [lead]
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Name
+        required: true
+      city:
+        required: false
+      class:
+        required: false
+      goal:
+        required: false
+      source:
+        required: false
+      contact:
+        required: true
+      note:
+        required: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram and keep a copy
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          NAME: ${{ github.event.client_payload.name || inputs.name }}
+          CITY: ${{ github.event.client_payload.city || inputs.city }}
+          CLASS: ${{ github.event.client_payload.class || inputs.class }}
+          GOAL: ${{ github.event.client_payload.goal || inputs.goal }}
+          SOURCE: ${{ github.event.client_payload.source || inputs.source }}
+          CONTACT: ${{ github.event.client_payload.contact || inputs.contact }}
+          NOTE: ${{ github.event.client_payload.note || inputs.note }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.parse, urllib.request
+          token = os.environ["TELEGRAM_BOT_TOKEN"]
+          def tg(method, **payload):
+              req = urllib.request.Request(
+                  f"https://api.telegram.org/bot{token}/{method}",
+                  data=json.dumps(payload).encode(),
+                  headers={"Content-Type": "application/json"},
+              )
+              with urllib.request.urlopen(req, timeout=20) as r:
+                  return json.load(r)
+          chat_id = None
+          updates = tg("getUpdates").get("result") or []
+          for item in reversed(updates):
+              msg = item.get("message") or {}
+              chat = msg.get("chat") or {}
+              if chat.get("id"):
+                  chat_id = chat["id"]
+                  break
+          if not chat_id:
+              raise SystemExit("Напиши боту @sashosha_listbot слово Старт")
+          lines = [
+              "Новая заявка с сайта sashosha math",
+              "",
+              f"Имя: {os.environ.get('NAME','')}",
+              f"Город: {os.environ.get('CITY','')}",
+              f"Класс: {os.environ.get('CLASS','')}",
+              f"Цель: {os.environ.get('GOAL','')}",
+              f"Откуда: {os.environ.get('SOURCE','')}",
+              f"Контакт: {os.environ.get('CONTACT','')}",
+          ]
+          note = (os.environ.get("NOTE") or "").strip()
+          if note:
+              lines.append(f"Комментарий: {note}")
+          tg("sendMessage", chat_id=chat_id, text="\n".join(lines))
+          PY
+      - name: Save lead as GitHub issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create --repo "${{ github.repository }}" --title "Заявка: ${{ github.event.client_payload.name || inputs.name }}" --body "$(cat <<EOF
+          - Имя: ${{ github.event.client_payload.name || inputs.name }}
+          - Город: ${{ github.event.client_payload.city || inputs.city }}
+          - Класс: ${{ github.event.client_payload.class || inputs.class }}
+          - Цель: ${{ github.event.client_payload.goal || inputs.goal }}
+          - Откуда: ${{ github.event.client_payload.source || inputs.source }}
+          - Контакт: ${{ github.event.client_payload.contact || inputs.contact }}
+          - Комментарий: ${{ github.event.client_payload.note || inputs.note }}
+          EOF
+          )"

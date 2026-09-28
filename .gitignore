@@ -1,2 +1,4 @@
 .DS_Store
 *.env
+.lead-secrets.json
+.wrangler/
