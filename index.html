@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Александра Антоновна — репетитор по математике</title>
+<style>
+  :root{
+    --bg:#F1DFE5;
+    --paper:#f8f8f6;
+    --ink:#111;
+    --muted:#777;
+    --pink:#E3A3B9;
+    --pink2:#F1DFE5;
+    --blue:#D2EEFB;
+    --cream:#FBEEB3;
+    --line:#e8e8e5;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  .wrap{max-width:1180px;margin:auto;padding:32px 20px 60px}
+  .top{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:22px;color:#111;font-size:13px;letter-spacing:.02em
+  }
+  .brand{font-size:14px}
+  .nav a{color:#111;text-decoration:none;margin-left:20px;transition:color .25s}
+  .nav a:hover{color:#9A5C76}
+  .grid{
+    display:grid;grid-template-columns:1.25fr .75fr;gap:18px
+  }
+  .card{
+    background:var(--paper);
+    border:1px solid #ddd;
+    min-height:100%;
+    position:relative;
+    overflow:hidden;
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(0,0,0,.16);
+  }
+  .photo:hover{transform:none;box-shadow:none}
+  .hero{padding:42px 42px 34px;min-height:530px}
+  h1{
+    font-size:clamp(42px,6vw,76px);
+    line-height:.92;margin:0 0 28px;
+    font-weight:500;letter-spacing:-.06em;
+    animation:rise .8s ease both;
+  }
+  .lead{animation:rise .8s ease .12s both}
+  .chips{animation:rise .8s ease .22s both}
+  .hero-actions{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
+    animation:rise .8s ease .3s both;
+  }
+  .accent{color:#c97a98}
+  .lead{font-size:19px;line-height:1.35;max-width:560px}
+  .small{color:var(--muted);font-size:14px;line-height:1.5}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .chip{background:#eee;padding:8px 12px;border-radius:3px;font-size:13px}
+  .photo{
+    min-height:530px;
+    height:100%;
+  }
+  .photo img{
+    position:absolute;inset:0;
+    width:100%;height:100%;object-fit:cover;object-position:center 58%;
+    display:block;
+    animation:photoIn 1.2s ease both, photoFloat 8s ease-in-out 1.2s infinite;
+  }
+  .tag{
+    position:absolute;left:24px;top:22px;
+    font-size:12px;color:#777;z-index:2
+  }
+  section{margin-top:18px}
+  .section-title{
+    font-size:29px;font-weight:500;letter-spacing:-.04em;margin:0 0 14px
+  }
+  .formats,.reasons,.steps{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px
+  }
+  .format{padding:24px 22px 26px;min-height:300px;overflow:visible}
+  .reason,.step{padding:52px 22px 28px;min-height:220px}
+  .process .fact{margin-bottom:14px}
+  .folder{
+    width:148px;
+    height:98px;
+    margin:36px 0 22px;
+    position:relative;
+    background:#ddd;
+    border-radius:0 12px 12px 12px;
+    transform-origin:bottom left;
+    animation:folderPop .7s ease;
+    transition:transform .35s ease;
+  }
+  .format:hover .folder{transform:rotate(-6deg) translateY(-6px)}
+  .pair .folder{animation-delay:.1s}
+  .group .folder{animation-delay:.2s}
+  .folder:before{
+    content:"";
+    position:absolute;
+    left:0;top:-18px;
+    width:52px;height:22px;
+    border-radius:8px 10px 0 0;
+    background:inherit;
+  }
+  .pair .folder{background:var(--cream)}
+  .group .folder{background:var(--blue)}
+  .ind .folder{background:var(--pink)}
+  .price{
+    display:inline-block;padding:7px 11px;background:#f0f0ee;
+    font-size:15px;margin-bottom:15px
+  }
+  .group .price{background:var(--blue)}
+  .ind .price{background:var(--pink2)}
+  .pair .price{background:var(--cream)}
+  ul{list-style:none;padding:0;margin:0}
+  li{margin:10px 0;font-size:14px;line-height:1.35}
+  li b{font-weight:500;color:#aaa;margin-right:7px}
+  .about,.gifts{
+    display:grid;grid-template-columns:1fr 1fr;gap:18px
+  }
+  .about .card,.gifts .card,.faq .card{padding:32px;min-height:300px}
+  .bigquote{font-size:38px;line-height:1.05;letter-spacing:-.05em;margin:0}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:25px}
+  .fact{background:#f0f0ee;padding:15px}
+  .fact strong{display:block;font-size:25px;font-weight:500;margin-bottom:5px}
+  .process{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .process .card{padding:24px 22px;min-height:240px}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  details.faq-item{
+    background:var(--paper);
+    border:1px solid #ddd;
+    padding:22px 24px;
+    min-height:auto;
+    overflow:hidden;
+  }
+  details.faq-item summary{
+    font-size:22px;
+    font-weight:500;
+    letter-spacing:-.04em;
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  details.faq-item summary::-webkit-details-marker{display:none}
+  details.faq-item summary:after{
+    content:"+";
+    font-size:24px;
+    color:#aaa;
+    line-height:1;
+  }
+  details.faq-item[open] summary:after{content:"–"}
+  details.faq-item .small{
+    margin:12px 0 0;
+    animation:rise .35s ease;
+  }
+  .ticker{
+    margin-top:18px;
+    overflow:hidden;
+    background:#111;
+    color:#fff;
+  }
+  .ticker-track{
+    display:flex;
+    gap:42px;
+    width:max-content;
+    padding:14px 0;
+    animation:ticker 22s linear infinite;
+    font-size:13px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .ticker-track span{display:flex;align-items:center;gap:42px}
+  .ticker-track span:after{
+    content:"★";
+    color:var(--pink);
+  }
+  .cta{
+    padding:38px;display:flex;justify-content:space-between;align-items:end;gap:30px
+  }
+  .cta h2{font-size:48px;line-height:.95;margin:0;letter-spacing:-.06em;font-weight:500}
+  .button{
+    display:inline-block;background:#111;color:#fff;text-decoration:none;
+    padding:15px 22px;font-size:14px;white-space:nowrap;
+    animation:pulse 1.8s ease-in-out infinite;
+    transition:transform .25s ease, background .25s ease;
+  }
+  .button:hover{transform:scale(1.06);background:#000}
+  .cta-note{margin:12px 0 0;max-width:420px}
+  .mid-cta{
+    margin-top:14px;padding:28px 32px;
+    display:flex;justify-content:space-between;align-items:center;gap:20px;
+  }
+  .mid-cta p{margin:0;font-size:22px;font-weight:500;letter-spacing:-.03em}
+  .trainer{
+    padding:52px 32px 38px;
+    display:grid;grid-template-columns:1.2fr .8fr;
+    gap:24px;align-items:end;
+  }
+  .trainer .price{background:var(--cream);margin:0 0 16px}
+  .trainer-lead{margin-top:16px;max-width:560px}
+  .included{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .include{padding:22px 20px;min-height:0}
+  .include .fact{margin-bottom:12px}
+  details.exam-fold{
+    padding:22px 24px 24px;
+    overflow:hidden;
+  }
+  details.exam-fold > summary{
+    font-size:22px;
+    font-weight:500;
+    letter-spacing:-.04em;
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  details.exam-fold > summary::-webkit-details-marker{display:none}
+  details.exam-fold > summary:after{
+    content:"+";
+    font-size:24px;
+    color:#aaa;
+    line-height:1;
+  }
+  details.exam-fold[open] > summary:after{content:"–"}
+  details.exam-fold .exam-more{
+    margin-top:18px;
+    animation:rise .35s ease;
+  }
+  .exam-head{padding:0;margin:0 0 14px;box-shadow:none;transform:none}
+  .exam-head:hover{transform:none;box-shadow:none}
+  .float-cta{
+    position:fixed;right:22px;bottom:22px;z-index:30;
+    background:#111;color:#fff;text-decoration:none;
+    padding:14px 18px;font-size:14px;
+    box-shadow:0 12px 30px rgba(0,0,0,.28);
+    animation:pulse 1.8s ease-in-out infinite;
+  }
+  .float-cta:hover{transform:scale(1.06)}
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.show{opacity:1;transform:none}
+  @keyframes rise{
+    from{opacity:0;transform:translateY(28px)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes photoIn{
+    from{opacity:0;transform:scale(1.08)}
+    to{opacity:1;transform:scale(1)}
+  }
+  @keyframes photoFloat{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.05)}
+  }
+  @keyframes folderPop{
+    from{opacity:0;transform:translateY(18px) rotate(-8deg)}
+    to{opacity:1;transform:none}
+  }
+  @keyframes pulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(227,163,185,.55)}
+    50%{box-shadow:0 0 0 14px rgba(227,163,185,0)}
+  }
+  @keyframes ticker{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,.photo img,.folder,.button,.float-cta,.reveal,.ticker-track{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}
+  }
+  footer{color:#7A6470;text-align:center;font-size:12px;padding-top:18px}
+  @media(max-width:800px){
+    .grid,.about,.gifts,.faq-grid{grid-template-columns:1fr}
+    .formats,.reasons,.steps,.process,.included{grid-template-columns:1fr}
+    .hero{min-height:auto}
+    .photo{min-height:0;aspect-ratio:1}
+    .nav{display:none}
+    .cta{display:block}.cta .button{margin-top:24px}
+    .mid-cta{display:block}.mid-cta .button{margin-top:18px}
+    .trainer{grid-template-columns:1fr}
+    .float-cta{right:16px;bottom:16px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">sashosha math</div>
+    <div class="nav">
+      <a href="#about">обо мне</a>
+      <a href="#why">почему я</a>
+      <a href="#trainer">тренажёр</a>
+      <a href="#channel">канал</a>
+      <a href="#exam">огэ / егэ</a>
+      <a href="#formats">форматы</a>
+      <a href="#prices">цены</a>
+      <a href="#faq">вопросы</a>
+      <a href="#contact">записаться</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="grid">
+      <div class="card hero">
+        <div class="tag">репетитор по математике</div>
+        <h1>обо<br>мне<span class="accent">.</span></h1>
+        <p class="lead">
+          Я — Александра Антоновна, тот самый комфортный преподаватель, с которым можно не только понять математику, но и отдохнуть морально и отлично провести время.
+        </p>
+        <div class="chips">
+          <span class="chip">пробный урок бесплатно</span>
+          <span class="chip">5–11 класс</span>
+          <span class="chip">ОГЭ</span>
+          <span class="chip">ЕГЭ база</span>
+          <span class="chip">онлайн</span>
+        </div>
+        <div class="hero-actions">
+          <a class="button" href="https://t.me/sashoshaa">записаться в Telegram →</a>
+        </div>
+      </div>
+
+      <div class="card photo">
+        <img src="alexandra.png" alt="Александра Антоновна — репетитор по математике">
+      </div>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>пробный урок — бесплатно</span>
+        <span>сайт-тренажёр — бесплатно</span>
+        <span>разборы и шпаргалки в тгк</span>
+        <span>пробный урок — бесплатно</span>
+        <span>сайт-тренажёр — бесплатно</span>
+        <span>разборы и шпаргалки в тгк</span>
+        <span>пробный урок — бесплатно</span>
+        <span>сайт-тренажёр — бесплатно</span>
+        <span>разборы и шпаргалки в тгк</span>
+        <span>пробный урок — бесплатно</span>
+        <span>сайт-тренажёр — бесплатно</span>
+        <span>разборы и шпаргалки в тгк</span>
+      </div>
+    </div>
+
+    <section id="about" class="reveal">
+      <div class="about">
+        <div class="card">
+          <p class="bigquote">«не просто решить задачу — а понять, почему она решается именно так»</p>
+        </div>
+        <div class="card">
+          <div class="section-title">что будет на занятиях</div>
+          <div class="facts">
+            <div class="fact"><strong>01</strong>индивидуальная программа</div>
+            <div class="fact"><strong>02</strong>собственные материалы</div>
+            <div class="fact"><strong>03</strong>разбор слабых мест</div>
+            <div class="fact"><strong>04</strong>поддержка между темами</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="trainer" class="reveal">
+      <div class="card trainer">
+        <div>
+          <div class="tag">мой сайт-тренажёр</div>
+          <div class="price">бесплатно</div>
+          <p class="bigquote">математика без паники — тренируйся в своём темпе</p>
+          <p class="small trainer-lead">Я сама разработала тренажёр: выбираешь тему, проходишь уровни и решаешь задания. Таблица умножения, уравнения, дроби и другие темы. Без оплаты — заходишь на сайт и сразу занимаешься.</p>
+        </div>
+        <a class="button" href="https://sashoshaa.github.io/sashosha-math/" target="_blank" rel="noopener">получить тренажёр →</a>
+      </div>
+    </section>
+
+    <section id="channel" class="reveal">
+      <div class="card trainer">
+        <div>
+          <div class="tag">telegram-канал</div>
+          <div class="price">бесплатно</div>
+          <p class="bigquote">разборы, шпаргалки и полезности — просто так</p>
+          <p class="small trainer-lead">В канале @sashoshamath я бесплатно публикую много разборов, шпаргалок и полезных материалов. Можно зайти, сохранить нужное и пользоваться без оплаты и без записи на занятия.</p>
+        </div>
+        <a class="button" href="https://t.me/sashoshamath" target="_blank" rel="noopener">открыть канал →</a>
+      </div>
+    </section>
+
+    <section id="why" class="reveal">
+      <div class="section-title">почему тебе нужно записаться ко мне</div>
+      <div class="reasons">
+        <article class="card reason">
+          <div class="tag">причина 01</div>
+          <div class="section-title">индивидуальный подход</div>
+          <p class="small">Объясняю темы «на пальцах» через любимые мемы, фильмы и сериалы учеников.</p>
+        </article>
+        <article class="card reason">
+          <div class="tag">причина 02</div>
+          <div class="section-title">система подарков</div>
+          <p class="small">За активность и выполненное д/з ты получаешь баллы, которые можно обменять на классные призы.</p>
+        </article>
+        <article class="card reason">
+          <div class="tag">причина 03</div>
+          <div class="section-title">комфортная атмосфера</div>
+          <p class="small">Ошибки на занятиях — это не повод для расстройств, а знак, что ты работаешь и двигаешься вперёд.</p>
+        </article>
+      </div>
+      <div class="card mid-cta">
+        <p>не надо «ещё чуть-чуть подготовиться» — можно начать уже на этой неделе</p>
+        <a class="button" href="https://t.me/sashoshaa">хочу на занятие →</a>
+      </div>
+    </section>
+
+    <section id="gifts" class="reveal">
+      <div class="gifts">
+        <div class="card">
+          <div class="tag">система подарков</div>
+          <p class="bigquote">учишься — получаешь баллы и меняешь их на призы</p>
+        </div>
+        <div class="card">
+          <div class="section-title">как копить баллы</div>
+          <div class="facts">
+            <div class="fact"><strong>01</strong>быть на занятии и включаться</div>
+            <div class="fact"><strong>02</strong>сделать д/з — даже неидеально</div>
+            <div class="fact"><strong>03</strong>задать вопрос, если непонятно</div>
+            <div class="fact"><strong>04</strong>обменять баллы на классный приз</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="process" class="reveal">
+      <div class="section-title">как проходит занятие</div>
+      <div class="process">
+        <div class="card">
+          <div class="fact"><strong>01</strong>находим точку входа</div>
+          <p class="small">Смотрим, где уже уверенно, а где тема рассыпается. Без проверки «на страх».</p>
+        </div>
+        <div class="card">
+          <div class="fact"><strong>02</strong>объясняю своими словами</div>
+          <p class="small">Через мемы, фильмы и сериалы, которые тебе близки.</p>
+        </div>
+        <div class="card">
+          <div class="fact"><strong>03</strong>решаем и ошибаемся</div>
+          <p class="small">Ошибка — знак, что ты работаешь. Разбираем и идём дальше.</p>
+        </div>
+        <div class="card">
+          <div class="fact"><strong>04</strong>закрепляем и копим баллы</div>
+          <p class="small">Короткое д/з, поддержка между темами и плюс в копилку призов.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="formats" class="reveal">
+      <div class="section-title">форматы занятий</div>
+      <div class="formats" id="prices">
+        <article class="card format ind">
+          <div class="tag">формат индивидуально</div>
+          <div class="folder"></div>
+          <div class="price">3000–4000 ₽ / 60 минут</div>
+          <ul>
+            <li><b>{1}</b>только ты и преподаватель</li>
+            <li><b>{2}</b>индивидуальная программа</li>
+            <li><b>{3}</b>разбираем именно твои слабые места</li>
+            <li><b>{4}</b>цена зависит от запроса</li>
+          </ul>
+        </article>
+
+        <article class="card format pair">
+          <div class="tag">формат пара</div>
+          <div class="folder"></div>
+          <div class="price">2250 ₽ / 60 минут</div>
+          <ul>
+            <li><b>{1}</b>ты + друг или одноклассник</li>
+            <li><b>{2}</b>совместное решение задач</li>
+            <li><b>{3}</b>поддержка и мотивация</li>
+          </ul>
+        </article>
+
+        <article class="card format group">
+          <div class="tag">формат группы</div>
+          <div class="folder"></div>
+          <div class="price">1500 ₽ / 60 минут</div>
+          <ul>
+            <li><b>{1}</b>3–5 замотивированных ребят</li>
+            <li><b>{2}</b>активное обсуждение</li>
+            <li><b>{3}</b>соревнования = дополнительная мотивация</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="exam" class="reveal">
+      <div class="section-title">подготовка к ОГЭ и ЕГЭ</div>
+      <details class="card exam-fold">
+        <summary>что входит в стоимость — нажми, чтобы открыть</summary>
+        <div class="exam-more">
+          <p class="small">Для тех, кто готовится к ОГЭ и ЕГЭ (база). Всё ниже идёт вместе с занятиями, без доплат.</p>
+          <div class="included">
+            <article class="card include">
+              <div class="fact"><strong>01</strong>занятия</div>
+              <p class="small">Непосредственно уроки со мной: разбираем темы, закрываем пробелы и идём к нужному результату.</p>
+            </article>
+            <article class="card include">
+              <div class="fact"><strong>02</strong>индивидуальные конспекты</div>
+              <p class="small">Персональные оформленные материалы после каждого занятия — не общие шаблоны, а твои.</p>
+            </article>
+            <article class="card include">
+              <div class="fact"><strong>03</strong>домашнее задание и проверка</div>
+              <p class="small">Д/з после урока и проверка с разбором ошибок. Понятно, где ошибка и как чинить.</p>
+            </article>
+            <article class="card include">
+              <div class="fact"><strong>04</strong>связь 24/7</div>
+              <p class="small">Можно писать в любой момент. В том числе помощь на самостоятельных и контрольных — без проблем.</p>
+            </article>
+            <article class="card include">
+              <div class="fact"><strong>05</strong>большой теоретический сборник</div>
+              <p class="small">По всем темам курса: открыть, найти нужное, повторить. Не надо собирать теорию по десяти чатам.</p>
+            </article>
+            <article class="card include">
+              <div class="fact"><strong>06</strong>свои пробники</div>
+              <p class="small">Раз в 2–3 недели. Периодичность зависит от месяца: ближе к экзамену — чаще и точнее по формату.</p>
+            </article>
+            <article class="card include">
+              <div class="fact"><strong>07</strong>общие пробники с камерами</div>
+              <p class="small">Раз в месяц для всех, кто готовится к ОГЭ и ЕГЭ. Проходят официально: бланки, справочные материалы и КИМы — чтобы в день экзамена не было сюрпризов.</p>
+            </article>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section id="start" class="reveal">
+      <div class="section-title">как начать</div>
+      <div class="steps">
+        <article class="card step">
+          <div class="tag">шаг 01</div>
+          <div class="section-title">напиши мне</div>
+          <p class="small">В Telegram @sashoshaa. Можно коротко: класс, цель и что сейчас тревожит.</p>
+        </article>
+        <article class="card step">
+          <div class="tag">шаг 02</div>
+          <div class="section-title">выберем формат</div>
+          <p class="small">Индивидуально, пара или группа — подстроимся под ритм и то, как тебе спокойнее учиться.</p>
+        </article>
+        <article class="card step">
+          <div class="tag">шаг 03</div>
+          <div class="section-title">встретимся</div>
+          <p class="small">Знакомимся, находим точку входа и сразу начинаем разбирать тему. Первый урок — бесплатный пробный.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="faq" class="reveal">
+      <div class="section-title">частые вопросы</div>
+      <div class="faq-grid">
+        <details class="card faq-item" open>
+          <summary>пробный урок бесплатный?</summary>
+          <p class="small">Да. Первое занятие — пробное и бесплатное: знакомимся, смотрим, где ты сейчас, и решаем, как двигаться дальше.</p>
+        </details>
+        <details class="card faq-item">
+          <summary>что если я ничего не понимаю?</summary>
+          <p class="small">Значит, есть с чего начать. Найдём понятную точку входа и пойдём маленькими шагами.</p>
+        </details>
+        <details class="card faq-item">
+          <summary>обязательно ли делать д/з?</summary>
+          <p class="small">Домашка помогает закрепить тему и даёт баллы на призы. Главное — попытка, а не идеальный лист.</p>
+        </details>
+        <details class="card faq-item">
+          <summary>что входит в цену на ОГЭ и ЕГЭ?</summary>
+          <p class="small">Уроки, персональные конспекты, д/з с проверкой, связь 24/7, теоретический сборник и пробники. Отдельно за материалы и пробники платить не нужно.</p>
+        </details>
+        <details class="card faq-item">
+          <summary>как проходят общие пробники?</summary>
+          <p class="small">Раз в месяц, с камерами, для всех, кто готовится к ОГЭ и ЕГЭ. Официально: бланки, справочные материалы и КИМы.</p>
+        </details>
+        <details class="card faq-item">
+          <summary>что можно получить бесплатно?</summary>
+          <p class="small">Пробный урок, сайт-тренажёр и материалы в Telegram-канале: разборы, шпаргалки и полезности. Канал и тренажёр открываются сами, пробное занятие — после сообщения в личку @sashoshaa.</p>
+        </details>
+        <details class="card faq-item">
+          <summary>что публикуется в канале?</summary>
+          <p class="small">В @sashoshamath я бесплатно выкладываю разборы, шпаргалки и полезности. Можно читать и сохранять, даже если ты ещё не занимаешься со мной.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="card cta">
+        <div>
+          <div class="small">места не бесконечные · напиши сегодня</div>
+          <h2>давай<br>разберёмся<br>с математикой<span class="accent">.</span></h2>
+          <p class="small cta-note">Первый шаг — одно сообщение. Подберём формат, успокоим панику и начнём с темы, которая реально мешает.</p>
+        </div>
+        <a class="button" href="https://t.me/sashoshaa">записаться сейчас →</a>
+      </div>
+    </section>
+  </main>
+
+  <a class="float-cta" href="https://t.me/sashoshaa">записаться</a>
+
+  <footer>@sashoshaa · sashosha math</footer>
+</div>
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
