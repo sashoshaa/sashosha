@@ -27,14 +27,7 @@ export default {
     if (!token) {
       return new Response(JSON.stringify({ ok: false, error: "no bot" }), { status: 500, headers: cors });
     }
-    const updatesRes = await fetch(`https://api.telegram.org/bot${token}/getUpdates`);
-    const updates = await updatesRes.json();
-    let chatId = env.CHAT_ID || "";
-    const list = (updates.result || []).slice().reverse();
-    for (const item of list) {
-      const id = item.message && item.message.chat && item.message.chat.id;
-      if (id) { chatId = String(id); break; }
-    }
+    const chatId = env.CHAT_ID || "877886344";
     if (!chatId) {
       return new Response(JSON.stringify({ ok: false, error: "start-bot" }), { status: 500, headers: cors });
     }

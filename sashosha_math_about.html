@@ -906,10 +906,10 @@
       } else if (out.ok) {
         leadForm.reset();
         leadStatus.textContent = 'Заявка отправлена. Я сама напишу в Telegram или на номер.';
-      } else if (out.error === 'blocked' || !out.ok) {
+      } else if (out.error === 'blocked') {
         leadStatus.textContent = 'Не отправилось: бот заблокирован. Открой @sashosha_listbot, нажми «Разблокировать» и «Старт», потом отправь форму ещё раз.';
       } else {
-        leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
+        leadStatus.textContent = 'Не отправилось. Открой @sashosha_listbot, нажми «Старт» и отправь форму ещё раз.';
       }
     } catch (err) {
       leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
