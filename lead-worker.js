@@ -55,7 +55,15 @@ export default {
       body: JSON.stringify({ chat_id: chatId, text: lines.join("\n") })
     });
     const tgJson = await tg.json();
-    return new Response(JSON.stringify({ ok: !!tgJson.ok }), {
+    if (!tgJson.ok) {
+      const desc = String(tgJson.description || "").toLowerCase();
+      const error = desc.includes("blocked") ? "blocked" : "send";
+      return new Response(JSON.stringify({ ok: false, error }), {
+        status: 500,
+        headers: { ...cors, "Content-Type": "application/json" }
+      });
+    }
+    return new Response(JSON.stringify({ ok: true }), {
       headers: { ...cors, "Content-Type": "application/json" }
     });
   }

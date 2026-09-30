@@ -906,6 +906,8 @@
       } else if (out.ok) {
         leadForm.reset();
         leadStatus.textContent = 'Заявка отправлена. Я сама напишу в Telegram или на номер.';
+      } else if (out.error === 'blocked' || !out.ok) {
+        leadStatus.textContent = 'Не отправилось: бот заблокирован. Открой @sashosha_listbot, нажми «Разблокировать» и «Старт», потом отправь форму ещё раз.';
       } else {
         leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
       }
