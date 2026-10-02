@@ -901,15 +901,11 @@
         body: JSON.stringify(payload)
       });
       const out = await res.json().catch(() => ({ ok: false }));
-      if (out.error === 'start-bot') {
-        leadStatus.textContent = 'Заявка почти ушла. Напиши боту @sashosha_listbot «Старт» и отправь форму ещё раз.';
-      } else if (out.ok) {
+      if (out.ok) {
         leadForm.reset();
         leadStatus.textContent = 'Заявка отправлена. Я сама напишу в Telegram или на номер.';
-      } else if (out.error === 'blocked') {
-        leadStatus.textContent = 'Не отправилось: бот заблокирован. Открой @sashosha_listbot, нажми «Разблокировать» и «Старт», потом отправь форму ещё раз.';
       } else {
-        leadStatus.textContent = 'Не отправилось. Открой @sashosha_listbot, нажми «Старт» и отправь форму ещё раз.';
+        leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
       }
     } catch (err) {
       leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
