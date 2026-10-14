@@ -799,8 +799,8 @@
             </select>
           </div>
           <div>
-            <label for="lead-contact">Telegram или телефон</label>
-            <input id="lead-contact" name="contact" type="text" required placeholder="@username или номер" autocomplete="tel">
+            <label for="lead-contact">Telegram</label>
+            <input id="lead-contact" name="contact" type="text" required placeholder="@username" autocomplete="off" inputmode="text" spellcheck="false">
           </div>
           <div class="full">
             <label for="lead-note">комментарий, если нужно</label>
@@ -874,6 +874,14 @@
     show(0);
   });
 
+  const telegramName = (value) => {
+    let text = String(value || '').trim();
+    text = text.replace(/^https?:\/\/(t\.me|telegram\.me)\//i, '');
+    text = text.replace(/^(t\.me|telegram\.me)\//i, '');
+    text = text.replace(/^@/, '');
+    if (!/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(text)) return '';
+    return '@' + text;
+  };
   const leadForm = document.getElementById('lead-form');
   const leadStatus = document.getElementById('lead-status');
   const leadEndpoint = 'https://sashosha-leads.vivacious-ear.workers.dev';
@@ -881,13 +889,19 @@
     e.preventDefault();
     const raw = new FormData(leadForm);
     if ((raw.get('company') || '').trim()) return;
+    const contact = telegramName(raw.get('contact'));
+    if (!contact) {
+      leadStatus.hidden = false;
+      leadStatus.textContent = 'Нужен Telegram, например @username. Номер телефона не подойдёт.';
+      return;
+    }
     const payload = {
       name: raw.get('name'),
       city: raw.get('city'),
       class: raw.get('class'),
       goal: raw.get('goal'),
       source: raw.get('source'),
-      contact: raw.get('contact'),
+      contact: contact,
       note: (raw.get('note') || '').trim()
     };
     const btn = leadForm.querySelector('button[type="submit"]');
@@ -903,7 +917,7 @@
       const out = await res.json().catch(() => ({ ok: false }));
       if (out.ok) {
         leadForm.reset();
-        leadStatus.textContent = 'Заявка отправлена. Я сама напишу в Telegram или на номер.';
+        leadStatus.textContent = 'Заявка отправлена. Я сама напишу в Telegram.';
       } else {
         leadStatus.textContent = 'Не отправилось. Нажми ещё раз через минуту.';
       }
